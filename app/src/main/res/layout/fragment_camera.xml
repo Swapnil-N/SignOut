@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <VideoView
-        android:id="@+id/videoView"
+        android:id="@+id/ID_videoView"
         android:layout_width="260dp"
         android:layout_height="260dp"
         android:layout_marginStart="8dp"
