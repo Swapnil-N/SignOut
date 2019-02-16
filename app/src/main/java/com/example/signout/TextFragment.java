@@ -12,6 +12,9 @@ public class TextFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_text, null);
+
+        View view = inflater.inflate(R.layout.fragment_text, null);
+
+        return view;
     }
 }
