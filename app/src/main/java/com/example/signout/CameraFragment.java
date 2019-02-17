@@ -2,6 +2,8 @@ package com.example.signout;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.VideoView;
 
+import java.util.ArrayList;
+
 import static android.app.Activity.RESULT_OK;
 
 public class CameraFragment extends Fragment {
@@ -22,8 +26,10 @@ public class CameraFragment extends Fragment {
     VideoView videoView;
     Button record;
     Boolean play;
-    Bundle bundle=new Bundle();
+    Bundle bundle = new Bundle();
     Uri videoUri;
+
+    ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
 
     @Nullable
     @Override
@@ -32,7 +38,7 @@ public class CameraFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_camera, null);
 
-        videoView=view.findViewById(R.id.ID_videoView);
+        videoView = view.findViewById(R.id.ID_videoView);
         record=view.findViewById(R.id.ID_Record);
         play=true;
 
@@ -61,6 +67,7 @@ public class CameraFragment extends Fragment {
     private void dispatchTakeVideoIntent() {
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+
             startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
         }
     }
@@ -70,31 +77,24 @@ public class CameraFragment extends Fragment {
             videoUri = intent.getData();
             //bundle.putString("Vid",videoUri.toString());
             videoView.setVideoURI(videoUri);
-
-            /*TextFragment newTextFragment = new TextFragment();
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fra, newGamefragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();*/
+            getPictures(videoUri);
+            //videoView.start();
         }
     }
 
-    /*@Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    private void getPictures(Uri inURI) {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            retriever.setDataSource(getContext(), inURI);
+            long videoLengthInSec = Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION))/1000;
+            for (int i=1;i<videoLengthInSec+1;i++)
+                imageList.add(retriever.getFrameAtTime(1000000*i));
 
-        bundle.putString("Vid",videoUri.toString());
-        outState.putAll(bundle);
+            Log.d("asdf", imageList.size()+"");
+            retriever.release();
+        }catch (Exception e){
+            Log.d("asdf","asdf");
+        }
     }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-            if(savedInstanceState!=null) {
-                videoUri= Uri.parse(savedInstanceState.getString("Vid"));
-                videoView.setVideoURI(videoUri);
-            }
-     }*/
 
 }
