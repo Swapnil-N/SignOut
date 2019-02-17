@@ -101,20 +101,22 @@ public class CameraFragment extends Fragment {
             retriever.setDataSource(getContext(), inURI);
             long videoLengthInSec = Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION))/1000;
 
-           double x=0;
-
+            double x = 0;
             switch(spinner.getSelectedItemPosition()) {
-                case 0: x=.5;
-                break;
-                case 1: x=1;
-                break;
-                case 2: x=2;
-                break;
+                case 0:
+                    x = 0.5;
+                    break;
+                case 1:
+                    x = 1;
+                    break;
+                case 2:
+                    x = 2;
+                    break;
             }
 
             imageList.clear();
 
-            for (double i =x; i<videoLengthInSec+1; i+=x)
+            for (double i=x; i<videoLengthInSec+1; i+=x)
                 imageList.add(retriever.getFrameAtTime(1000000*((long)i) )); // input in micro secs
 
             Log.d("asdf", imageList.size()+"");
