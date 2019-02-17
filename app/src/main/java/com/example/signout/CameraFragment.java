@@ -91,7 +91,7 @@ public class CameraFragment extends Fragment {
             //bundle.putString("Vid",videoUri.toString());
             videoView.setVideoURI(videoUri);
             getPictures(videoUri);
-            //videoView.start();
+            videoView.start();
         }
     }
 
