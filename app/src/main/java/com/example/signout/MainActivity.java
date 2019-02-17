@@ -7,6 +7,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.ibm.watson.developer_cloud.discovery.v1.Discovery;
+import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     @Override
@@ -18,7 +23,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigation.setOnNavigationItemSelectedListener(this);
 
         loadFragment(new CameraFragment());
+
+        IamOptions options = new IamOptions.Builder()
+                .apiKey("9FLgdPdP7umW-3_m_EAjDxXRalbLsCeD21Ovw  eEBEqlH")
+                .build();
+        TextToSpeech textToSpeech = new TextToSpeech(options);
+        textToSpeech.setEndPoint("https://stream.watsonplatform.net/text-to-speech/api");
+
+
     }
+
+
 
     private boolean loadFragment(Fragment fragment){
         if (fragment != null){
