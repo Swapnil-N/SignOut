@@ -1,5 +1,6 @@
 package com.example.signout;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;*/
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
