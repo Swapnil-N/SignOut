@@ -29,7 +29,12 @@ public class CameraFragment extends Fragment {
     Bundle bundle = new Bundle();
     Uri videoUri;
 
+    private static final String BUNDLE_KEY = "VariableKey";
+    static final int REQUEST_VIDEO_CAPTURE = 1;
+
     ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
+
+
 
     @Nullable
     @Override
@@ -39,8 +44,8 @@ public class CameraFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_camera, null);
 
         videoView = view.findViewById(R.id.ID_videoView);
-        record=view.findViewById(R.id.ID_Record);
-        play=true;
+        record = view.findViewById(R.id.ID_Record);
+        play = true;
 
         record.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,10 +64,34 @@ public class CameraFragment extends Fragment {
             }
         });
 
+        Log.d("asdf","OCV"+savedInstanceState);
+        if (savedInstanceState != null){
+            videoUri = Uri.parse(savedInstanceState.getString(BUNDLE_KEY));
+            videoView.setVideoURI(videoUri);
+            Log.d("asdf","sis !null");
+        }
+
         return view;
     }
 
-    static final int REQUEST_VIDEO_CAPTURE = 1;
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (videoUri != null) {
+            outState.putString(BUNDLE_KEY, videoUri.toString());
+            Log.d("asdf","VU !null");
+        }
+        Log.d("asdf","OSIS");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("asdf", "ODV");
+        //Bundle myBundle = new Bundle();
+        //myBundle.putString("MY_KEY", videoUri);
+        onSaveInstanceState(new Bundle());
+    }
 
     private void dispatchTakeVideoIntent() {
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -78,7 +107,7 @@ public class CameraFragment extends Fragment {
             //bundle.putString("Vid",videoUri.toString());
             videoView.setVideoURI(videoUri);
             getPictures(videoUri);
-            //videoView.start();
+            videoView.start();
         }
     }
 
