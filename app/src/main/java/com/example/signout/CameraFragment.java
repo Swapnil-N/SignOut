@@ -3,6 +3,7 @@ package com.example.signout;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
@@ -55,6 +56,14 @@ public class CameraFragment extends Fragment {
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_dropdown_item,things);
         spinner.setAdapter(arrayAdapter);
 
+
+        //UI
+        record.setBackgroundColor(Color.rgb(234,0,117));
+        record.setTextColor(Color.rgb(45,45,45));
+        videoView.setVisibility(View.INVISIBLE);
+        spinner.setBackgroundColor(Color.rgb(234,0,117));
+
+
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +91,7 @@ public class CameraFragment extends Fragment {
         if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
 
             startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+            videoView.setVisibility(View.VISIBLE);
         }
     }
 

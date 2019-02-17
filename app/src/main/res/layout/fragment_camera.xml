@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#0085c4">
 
     <VideoView
         android:id="@+id/ID_videoView"
@@ -20,12 +21,12 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.091" />
+        app:layout_constraintVertical_bias="0.124" />
 
     <Button
         android:id="@+id/ID_Record"
-        android:layout_width="207dp"
-        android:layout_height="85dp"
+        android:layout_width="122dp"
+        android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -34,22 +35,22 @@
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ID_videoView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.178" />
 
     <Spinner
         android:id="@+id/ID_spinner"
-        android:layout_width="250dp"
-        android:layout_height="39dp"
+        android:layout_width="171dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ID_Record"
-        app:layout_constraintVertical_bias="0.109" />
+        app:layout_constraintVertical_bias="0.414" />
 </android.support.constraint.ConstraintLayout>
