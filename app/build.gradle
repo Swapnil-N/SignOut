@@ -29,4 +29,5 @@ dependencies {
     compile 'com.ibm.watson.developer_cloud:java-sdk:6.14.0'
 
 
+    implementation 'org.jetbrains:annotations-java5:15.0'
 }
