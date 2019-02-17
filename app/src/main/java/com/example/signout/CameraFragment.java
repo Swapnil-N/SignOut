@@ -14,12 +14,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.VideoView;
 
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class CameraFragment extends Fragment {
 
@@ -28,6 +31,7 @@ public class CameraFragment extends Fragment {
     Boolean play;
     Bundle bundle = new Bundle();
     Uri videoUri;
+    Spinner spinner;
 
     ArrayList<Bitmap> imageList = new ArrayList<Bitmap>();
 
@@ -41,6 +45,12 @@ public class CameraFragment extends Fragment {
         videoView = view.findViewById(R.id.ID_videoView);
         record=view.findViewById(R.id.ID_Record);
         play=true;
+
+        //initialize spinner
+        spinner=view.findViewById(R.id.ID_spinner);
+        String[] things=new String[]{"0.5 second intervals","1 second intervals","2 second intervals"};
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_dropdown_item,things);
+        spinner.setAdapter(arrayAdapter);
 
         record.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,8 +97,22 @@ public class CameraFragment extends Fragment {
         try {
             retriever.setDataSource(getContext(), inURI);
             long videoLengthInSec = Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION))/1000;
-            for (int i=1;i<videoLengthInSec+1;i++)
-                imageList.add(retriever.getFrameAtTime(1000000*i));
+
+           double x=0;
+
+            switch(spinner.getSelectedItemPosition()) {
+                case 0: x=.5;
+                break;
+                case 1: x=1;
+                break;
+                case 2: x=2;
+                break;
+            }
+
+            imageList.clear();
+
+            for (double i =x; i<videoLengthInSec+1; i+=x)
+                imageList.add(retriever.getFrameAtTime(1000000*((long)i) )); // input in micro secs
 
             Log.d("asdf", imageList.size()+"");
             retriever.release();
